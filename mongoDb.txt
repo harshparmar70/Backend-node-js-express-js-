@@ -1,0 +1,22 @@
+show dbs
+show databases
+
+use DatabaseName --create && use database
+db.student.renameCollection("students") --drop database
+
+db.createCollection("CollectionName") --create collection like table
+db.nameCollection.drop(); --drop collection
+db.student.renameCollection("students") --rename collection
+
+db.students.insertOne({"sname" : "Ravi","sEmail":"ravi@gmaile.com"}) --inserte document one
+db.students.insertMany([{"sname" : "Raj","sEmail":"raj@gmaile.com"},{"sname" : "Ram","sEmail":"ram@gmaile.com"}]) --insert maney document
+
+db.students.find() --Retrieves documents
+db.students.find({key:val}) --Retrieves documents with condition
+db.students.findOne({_id : ObjectId('696b5d45d2a838edcf70f029')}) 
+db.students.find().pretty() --Retrieves documents and formats the display
+
+db.students.deleteOne({_id : ObjectId('696b5d45d2a838edcf70f027')}) --delete document
+db.students.deleteMany([{},{}]) --delete many
+
+db.students.updateOne({_id : ObjectId('696b5c4cd2a838edcf70f026')},{$set : {"sname" : "ram"}}) --update one document
