@@ -38,7 +38,7 @@ app.post("/student-insert", async(req, res) => {
         msg: "Data Insert ",
         insertResult
     }
-    res.send(resOBJ)
+    res.send(resOBJ);
 })
 
 app.listen("3000")
