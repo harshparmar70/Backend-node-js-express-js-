@@ -31,15 +31,25 @@ app.post("/student-insert", async(req, res) => {
     let obj = { sname, semail };
     console.log(obj);
 
-    const insertResult = await Studentcollection.insertOne(obj);
-    console.log('Inserted documents =>', insertResult);
+    let CheckEmail = await Studentcollection.findOne({ semail: semail })
+    console.log(CheckEmail);
 
+    if (CheckEmail) {
+        return res.send({
+            status: 0,
+            msg: "Emaile Id Alredy Exist..."
+        })
+    }
+    const insertResult = await Studentcollection.insertOne(obj);
     let resOBJ = {
         status: 1,
         msg: "Data Insert ",
         insertResult
     }
     res.send(resOBJ);
+
+
+
 })
 
 app.delete("/student-delete/:id", async(req, res) => {
@@ -59,11 +69,19 @@ app.delete("/student-delete/:id", async(req, res) => {
 
 app.put("/student-update/:id", async(req, res) => {
     let paramdataId = req.params.id; //where
-    let dataObj = { sname: req.body.sname, semail: req.body.semail } // data
+    let { sname, semail } = req.body;
+    let obj = {}
+
+    if (sname !== "" && sname !== undefined && sname !== null) {
+        obj['sname'] = sname;
+    }
+    if (semail !== "" && semail !== undefined && semail !== null) {
+        obj['semail'] = semail;
+    }
 
     let mydb = await dbConnection();
     let Studentcollection = mydb.collection("student")
-    const updateResult = await Studentcollection.updateOne({ _id: new ObjectId(paramdataId) }, { $set: dataObj });
+    const updateResult = await Studentcollection.updateOne({ _id: new ObjectId(paramdataId) }, { $set: obj });
 
     let OBJ = {
         status: 1,
