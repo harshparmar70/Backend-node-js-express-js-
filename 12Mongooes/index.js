@@ -43,6 +43,19 @@ app.delete("/api/enquiry-delete/:id", async(req, res) => {
 
 })
 
+app.put("/api/enquiry-update/:id", async(req, res) => {
+    let enquiryId = req.params.id;
+    let { sname, semail, smessage, sphoneNo } = req.body;
+    let UpdateObj = {
+        name: sname,
+        email: semail,
+        phone: sphoneNo,
+        message: smessage,
+    }
+    let UpdateEnquiry = await enquryModel.updateOne({ _id: enquiryId }, UpdateObj)
+    res.send({ status: 0, message: "Update Api", id: enquiryId, update: UpdateEnquiry })
+})
+
 mongoose.connect(process.env.mongo_url)
     .then(() => {
         console.log("Connected to MongoDB");
