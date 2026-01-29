@@ -89,8 +89,6 @@ app.put("/student-update/:id", async(req, res) => {
         updateResult
     }
     res.send(OBJ)
-
-
 })
 
-app.listen("3000")
+app.listen("3000");
