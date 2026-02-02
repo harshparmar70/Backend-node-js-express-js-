@@ -2,7 +2,7 @@ import Enquiry from './Enquiry.jsx'
 
 const App = () => {
   return (
-    <div>
+    <div className='bg-gray-300 h-screen'>
       <Enquiry />
       
     </div>

@@ -1,23 +1,20 @@
-const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config()
-const app = express();
+const express = require('express');
+let cros = require('cors');
+var mongoose = require('mongoose');
+let enquiryRoutes = require('./app/routes/web/enquiryRoutes');
+require('dotenv').config();
+let app = express();
+
+app.use(cros())
 app.use(express.json());
 
-app.use("/web/api/enquiry", require("./app/routes/web/enquiryRoutes"));
-
-//localhost:3000/web/api/enquiry/enquiry-insert
-//localhost:3000/web/api/enquiry/enquiry-list
-//localhost:3000/web/api/enquiry/enquiry-delete/:id
-//localhost:3000/web/api/enquiry/enquiry-update/:id
+//Routes
+app.use('/api/web/enquiries', enquiryRoutes);
+//localhost:3000/api/web/enquiries/insert
 
 mongoose.connect(process.env.mongo_url)
-    .then(() => {
-        console.log("Connected to MongoDB");
-        app.listen(process.env.PORT, () => {
-            console.log(`Server running on port ${process.env.PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.error("MongoDB connection error:", err);
+    .then(app.listen(process.env.PORT, () => {
+        console.log('Server started at port 3000');
+    })).catch((err) => {
+        console.log('Error in DB connection: ' + err);
     });

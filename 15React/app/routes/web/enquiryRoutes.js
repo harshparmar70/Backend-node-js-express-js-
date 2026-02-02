@@ -1,10 +1,7 @@
 let express = require("express");
-let { insertEnquiry, enqurylist, deleteEnquiry, updateEnquiry } = require("../../controllers/web/userEnquiryController");
+let { enquiryInsert } = require("../../controller/web/enquiryController");
 
-let enquiryRoutes = express.Router();
-enquiryRoutes.post("/enquiry-insert", insertEnquiry);
-enquiryRoutes.get("/enquiry-list", enqurylist)
-enquiryRoutes.delete("/enquiry-delete/:id", deleteEnquiry)
-enquiryRoutes.put("/enquiry-update/:id", updateEnquiry)
+let enquiryRouter = express.Router();
 
-module.exports = enquiryRoutes;
+enquiryRouter.post("/insert", enquiryInsert);
+module.exports = enquiryRouter;
