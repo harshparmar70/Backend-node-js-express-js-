@@ -14,7 +14,7 @@ app.use('/api/web/enquiries', enquiryRoutes);
 
 mongoose.connect(process.env.mongo_url)
     .then(app.listen(process.env.PORT, () => {
-        console.log('Server started at port 3000');
+        console.log('Server started at port : ' + process.env.PORT);
     })).catch((err) => {
         console.log('Error in DB connection: ' + err);
     });

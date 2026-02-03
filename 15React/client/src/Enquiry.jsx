@@ -12,7 +12,7 @@ const Enquiry = () => {
       <div className="grid grid-cols-[30%_auto] px-5 gap-3">
         
           <Enquiryform/>
-          <EnquiryList/>
+          
       </div>
     </div>
   )
