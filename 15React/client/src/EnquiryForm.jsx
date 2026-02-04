@@ -121,7 +121,7 @@ const Enquiryform = () => {
           </form>
         </div>
     </div>
-    <EnquiryList data = {enquiryList} getALLEnquiry ={getALLEnquiry} setformData = {setformData}/>
+    <EnquiryList data = {enquiryList} getALLEnquiry ={getALLEnquiry} setform = {setformData}/>
 
     </>
   )

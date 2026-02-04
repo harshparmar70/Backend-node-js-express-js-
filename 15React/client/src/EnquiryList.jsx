@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 
 import axios from 'axios';
 
 
-const EnquiryList = ({ data ,getALLEnquiry ,setformData}) => {
+const EnquiryList = ({ data ,getALLEnquiry ,setform}) => {
   console.log("props", data);
   console.log(data[0]);
   
@@ -21,9 +21,17 @@ const EnquiryList = ({ data ,getALLEnquiry ,setformData}) => {
     axios.get(`http://localhost:8000/api/web/enquiries/get/${editId}`)
     .then((res) => {
       let data =res.data.enquiry
-      setformData(data.enquiry);
+      console.log("edit data", data[0].name);
+      
+      setform({
+          name: data[0].name,
+          email : data[0].email,
+          phone : data[0].phone,
+          message : data[0].message,
+          _id: data[0]._id
+        });
     })
-    
+
   }
   return (
     <>
@@ -65,6 +73,7 @@ const EnquiryList = ({ data ,getALLEnquiry ,setformData}) => {
                           <button className='bg-blue-600 text-white rounded-sm active:scale-110 font-medium w-full p-1'onClick={
                             ()=>{
                               editRow(Items._id)
+                            
                             }
                           }>Edit</button>
                         </TableCell>
