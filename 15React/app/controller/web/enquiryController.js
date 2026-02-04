@@ -32,10 +32,25 @@ let enquiryDelete = async(req, res) => {
     res.send({ status: 1, message: "Enquiry Delete Successfully", enquiry: enquiryDelete });
 }
 
-let enquiryUpdate = async(req, res) => {
+let enquiryOne = async(req, res) => {
     let enid = req.params.id;
     let enquiryRow = await enquiryModel.find({ _id: enid })
     res.send({ status: 1, message: "Id selected", enquiry: enquiryRow })
 }
+let enquiryUpdate = async(req, res) => {
+    let { name, email, phone, message } = req.body;
 
-module.exports = { enquiryInsert, enquiryList, enquiryDelete, enquiryUpdate };
+
+    let enid = req.params.id;
+    let update = await enquiryModel.updateOne({ _id: enid }, {
+        $set: {
+            name,
+            email,
+            phone,
+            message
+        }
+    });
+    res.send({ status: 1, message: "Id selected", enquiry: update })
+}
+
+module.exports = { enquiryInsert, enquiryList, enquiryDelete, enquiryOne, enquiryUpdate };

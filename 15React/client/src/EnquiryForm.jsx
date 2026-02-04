@@ -30,7 +30,21 @@ const Enquiryform = () => {
 
     console.log(formData);
     
-    Axios.post("http://localhost:8000/api/web/enquiries/insert", formData)
+    if (formData._id) {
+      Axios.put(`http://localhost:8000/api/web/enquiries/update/${formData._id}`,formData)
+      .then(() => {
+        
+        toast.success("Update Successfully");
+        setformData({
+          name: "",
+          email : "",
+          phone : "",
+          message : ""
+        });
+        getALLEnquiry()
+      })
+    }else{
+      Axios.post("http://localhost:8000/api/web/enquiries/insert", formData)
       .then((response) => {
         console.log(response.data);
         toast.success("Enquiry Submitted Successfully!");
@@ -45,6 +59,8 @@ const Enquiryform = () => {
       .catch((error) => {
         console.log(error);
       });
+    }
+    
   }
 
   let getALLEnquiry = () =>{
@@ -86,6 +102,7 @@ const Enquiryform = () => {
           <form action="" onSubmit={saveEnquiry}>
 
             <div className="py-3">
+              {/* {formData._id} */}
               <Label htmlFor="name">Your Name</Label>
               <TextInput name="name" onChange={getValue} value={formData.name} type="text" placeholder="Enter Name" required />
             </div>
