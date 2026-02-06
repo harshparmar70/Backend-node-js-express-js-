@@ -12,6 +12,6 @@ let loginSchema = new mongoose.Schema({
     }
 })
 
-let loginModel = mongoose.model("login", loginSchema)
+let loginModule = mongoose.model("login", loginSchema);
 
-module.exports = loginModel
+module.exports = loginModule;

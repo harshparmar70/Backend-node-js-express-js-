@@ -1,34 +1,19 @@
-let express = require("express");
+const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
-let login = require("./login.model");
-let app = express();
-
+const app = express();
+let loginModule = require("./app/models/login.module");
+let loginRoutes = require("./app/routes/loginRoutes");
 app.use(express.json());
 
-app.post('/insert', (req, res) => {
-    let { email, password } = req.body;
+app.use("/api", loginRoutes);
 
-    let loginData = login(email, password);
 
-    loginData.save()
-        .then(() => {
-            res.send({
-                status: 1,
-                message: "Inserted Successfully"
-            })
-        }).catch((err) => {
-            res.send({
-                status: 0,
-                message: err.message
-            })
-        })
 
+mongoose.connect("mongodb://localhost:27017/loginapp").then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(3000, () => {
+        console.log("server started on port 3000");
+    })
+}).catch((err) => {
+    console.error("Error connecting to MongoDB", err);
 });
-
-mongoose.connect(process.env.mongo_url)
-    .then(app.listen(process.env.PORT, () => {
-        console.log('Server started at port : ' + process.env.PORT);
-    })).catch((err) => {
-        console.log('Error in DB connection: ' + err);
-    });
